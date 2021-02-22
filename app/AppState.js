@@ -7,7 +7,7 @@ class AppState extends EventEmitter {
   values = []
   characters = []
   next = ''
-  prev = ''
+  prev = null
 }
 
 export const ProxyState = new Proxy(new AppState(), {

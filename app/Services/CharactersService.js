@@ -15,7 +15,8 @@ class CharactersService {
         api.get('people').then(res => {
             ProxyState.characters = res.data.results.map(rawCharacterData => new Character(rawCharacterData))
             ProxyState.next = res.data.next
-            ProxyState.prev = res.data.prev
+            ProxyState.prev = res.data.previous
+            console.log(res.data.previous);
         }).catch(err => console.error(err))
     }
 
@@ -23,10 +24,24 @@ class CharactersService {
         api.get(ProxyState.next).then(res => {
             ProxyState.characters = res.data.results.map(rawCharacterData => new Character(rawCharacterData))
             ProxyState.next = res.data.next
-            ProxyState.prev = res.data.prev
+            ProxyState.prev = res.data.previous
         }).catch(err => console.error(err))
     }
 
+    prev(){
+        api.get(ProxyState.prev).then(res => {
+            
+            if(ProxyState.prev != null){
+
+                ProxyState.characters = res.data.results.map(rawCharacterData => new Character(rawCharacterData))
+            }else{
+                alert('There is no Previous page')
+                return
+            }
+            ProxyState.next = res.data.next
+            ProxyState.prev = res.data.previous
+        }).catch(err => console.error(err))      
+    }
 
 }
 
