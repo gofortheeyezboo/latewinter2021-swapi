@@ -13,23 +13,17 @@ class CharactersService {
     // })
     getCharacters() {
         api.get('people').then(res => {
-            console.log(res.data)
             ProxyState.characters = res.data.results.map(rawCharacterData => new Character(rawCharacterData))
             ProxyState.next = res.data.next
             ProxyState.prev = res.data.prev
-            console.log(ProxyState.characters)
-        console.log("this does not run first")
         }).catch(err => console.error(err))
-        console.log("this runs first")
     }
 
     next() {
         api.get(ProxyState.next).then(res => {
-            console.log(res.data)
             ProxyState.characters = res.data.results.map(rawCharacterData => new Character(rawCharacterData))
             ProxyState.next = res.data.next
             ProxyState.prev = res.data.prev
-            console.log(ProxyState.characters)
         }).catch(err => console.error(err))
     }
 
